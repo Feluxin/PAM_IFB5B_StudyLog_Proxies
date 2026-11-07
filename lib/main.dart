@@ -1,3 +1,4 @@
+// Milestone 2 + Tugas Pengayaan 4.7 (Kelompok Proxies)
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -51,8 +52,41 @@ class BerandaPage extends StatelessWidget {
             FilledButton(onPressed: () => Navigator.push(
               context, MaterialPageRoute(builder: (_) => const DaftarPage())),
               child: const Text('Buka Daftar Catatan')),
+            const SizedBox(height: 10),
+            // Pengayaan 4.7: halaman Tentang Aplikasi dihubungkan dari Beranda
+            OutlinedButton.icon(onPressed: () => Navigator.push(
+              context, MaterialPageRoute(builder: (_) => const TentangPage())),
+              icon: const Icon(Icons.info_outline),
+              label: const Text('Tentang Aplikasi')),
           ],
         )),
+      );
+}
+
+class TentangPage extends StatelessWidget {
+  const TentangPage({super.key});
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(title: const Text('Tentang Aplikasi')),
+        body: ListView(padding: const EdgeInsets.all(20), children: [
+          Text('StudyLog', style: Theme.of(context).textTheme.headlineMedium),
+          const SizedBox(height: 8),
+          const Text('Aplikasi catatan perkuliahan offline untuk praktikum '
+              'Pemrograman Aplikasi Bergerak, Universitas Mulia.'),
+          const Divider(height: 32),
+          const Text('Kelompok Proxies',
+              style: TextStyle(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
+          const Text('Samuel Julian Kumaat (2411041)\n'
+              'Albert Felix Jonathan (2411048)\n'
+              'Rizky Ariello Nesta (2411058)\n'
+              'Muhammad Rafli (2411073)\n'
+              'Farhan Mikdam (2411078)\n'
+              'Desta Adha Chandra (2411079)'),
+          const Divider(height: 32),
+          const Text('Versi checkpoint M2: data disimpan sementara di RAM '
+              'melalui ChangeNotifier dan Provider.'),
+        ]),
       );
 }
 
@@ -60,7 +94,11 @@ class DaftarPage extends StatelessWidget {
   const DaftarPage({super.key});
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text('Daftar Catatan')),
+        // Pengayaan 4.7: jumlah total catatan dibaca melalui Consumer
+        appBar: AppBar(title: Consumer<CatatanStore>(
+          builder: (context, store, _) =>
+              Text('Daftar Catatan (${store.data.length})'),
+        )),
         body: Consumer<CatatanStore>(builder: (context, store, _) {
           if (store.data.isEmpty) {
             return const Center(child: Text('Belum ada catatan. Tambahkan melalui tombol +.'));
