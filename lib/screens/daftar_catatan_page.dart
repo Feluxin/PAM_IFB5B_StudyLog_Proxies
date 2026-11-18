@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../viewmodels/catatan_view_model.dart';
-import 'detail_catatan_page.dart';
-import 'form_catatan_page.dart';
+import '../routes.dart';
 
 class DaftarCatatanPage extends StatelessWidget {
   const DaftarCatatanPage({super.key});
@@ -44,16 +43,14 @@ class DaftarCatatanPage extends StatelessWidget {
                 title: Text(catatan.judul),
                 subtitle: Text(catatan.mataKuliah),
                 trailing: const Icon(Icons.chevron_right),
-                onTap: () => Navigator.push(context, MaterialPageRoute(
-                  builder: (_) => DetailCatatanPage(id: catatan.id!),
-                )),
+                onTap: () => Navigator.pushNamed(context, AppRoutes.detailCatatan,
+                    arguments: catatan.id),
               ));
             },
           );
         }),
         floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => Navigator.push(context,
-            MaterialPageRoute(builder: (_) => const FormCatatanPage())),
+          onPressed: () => Navigator.pushNamed(context, AppRoutes.formCatatan),
           icon: const Icon(Icons.add),
           label: const Text('Tambah'),
         ),

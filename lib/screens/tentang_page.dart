@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Halaman Tentang Aplikasi (pengayaan 4.7, dipertahankan pada M3)
 class TentangPage extends StatelessWidget {
   const TentangPage({super.key});
 
@@ -10,12 +9,17 @@ class TentangPage extends StatelessWidget {
         body: ListView(padding: const EdgeInsets.all(20), children: [
           Text('StudyLog', style: Theme.of(context).textTheme.headlineMedium),
           const SizedBox(height: 8),
-          const Text('Aplikasi catatan perkuliahan offline. Catatan disimpan '
-              'pada database SQLite di perangkat sehingga tetap tersedia '
+          const Text('Aplikasi pendamping kuliah yang offline-first. Seluruh data '
+              'disimpan pada database SQLite di perangkat sehingga tetap tersedia '
               'tanpa koneksi internet.'),
+          const SizedBox(height: 12),
+          const Text('• Profil Mahasiswa: kartu mahasiswa, form profil, kontak, '
+              'dan detail mata kuliah.\n'
+              '• StudyLog: catatan materi per mata kuliah.\n'
+              '• Campus Report: aduan fasilitas kampus dengan foto, lokasi '
+              'opsional, dan pengiriman ke REST API yang dapat diulang.'),
           const Divider(height: 32),
-          const Text('Kelompok Proxies',
-              style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text('Kelompok Proxies', style: TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 8),
           const Text('Samuel Julian Kumaat (2411041)\n'
               'Albert Felix Jonathan (2411048)\n'

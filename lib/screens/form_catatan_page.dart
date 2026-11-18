@@ -6,7 +6,10 @@ import '../viewmodels/catatan_view_model.dart';
 
 class FormCatatanPage extends StatefulWidget {
   final Catatan? awal;
-  const FormCatatanPage({super.key, this.awal});
+
+  /// Diisi saat form dibuka dari Detail Mata Kuliah pada modul Profil.
+  final String? mataKuliahAwal;
+  const FormCatatanPage({super.key, this.awal, this.mataKuliahAwal});
 
   @override
   State<FormCatatanPage> createState() => _FormCatatanPageState();
@@ -22,7 +25,8 @@ class _FormCatatanPageState extends State<FormCatatanPage> {
   @override
   void initState() {
     super.initState();
-    _mataKuliah = TextEditingController(text: widget.awal?.mataKuliah ?? '');
+    _mataKuliah = TextEditingController(
+        text: widget.awal?.mataKuliah ?? widget.mataKuliahAwal ?? '');
     _judul = TextEditingController(text: widget.awal?.judul ?? '');
     _isi = TextEditingController(text: widget.awal?.isi ?? '');
   }

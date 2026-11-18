@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../models/catatan.dart';
 import '../viewmodels/catatan_view_model.dart';
-import 'form_catatan_page.dart';
+import '../routes.dart';
 
 class DetailCatatanPage extends StatelessWidget {
   final int id;
@@ -34,8 +34,8 @@ class DetailCatatanPage extends StatelessWidget {
             Text(data.isi),
             const SizedBox(height: 28),
             FilledButton.tonalIcon(
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => FormCatatanPage(awal: data))),
+              onPressed: () => Navigator.pushNamed(context, AppRoutes.formCatatan,
+                  arguments: FormCatatanArgs(awal: data)),
               icon: const Icon(Icons.edit), label: const Text('Ubah'),
             ),
             const SizedBox(height: 10),
