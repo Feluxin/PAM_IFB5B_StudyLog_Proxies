@@ -3,16 +3,35 @@ import 'package:provider/provider.dart';
 
 import 'data/catatan_repository.dart';
 import 'data/database_helper.dart';
-import 'screens/beranda_page.dart';
+import 'data/report_local_source.dart';
+import 'data/report_repository.dart';
+import 'data/profil_repository.dart';
+import 'routes.dart';
+import 'services/device_services.dart';
+import 'services/report_api_service.dart';
 import 'viewmodels/catatan_view_model.dart';
+import 'viewmodels/report_view_model.dart';
+import 'viewmodels/profil_view_model.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  final db = DatabaseHelper.instance;
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => CatatanViewModel(
-        CatatanRepository(DatabaseHelper.instance),
-      )..muatCatatan(),
+    MultiProvider(
+      providers: [
+        Provider(create: (_) => DeviceServices()),
+        ChangeNotifierProvider(
+          create: (_) => CatatanViewModel(CatatanRepository(db))..muatCatatan(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ProfilViewModel(ProfilRepository(db))..muat(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ReportViewModel(
+            ReportRepository(ReportLocalSource(db), ReportApiService(apiBaseUrl)),
+          )..initialize(),
+        ),
+      ],
       child: const StudyLogApp(),
     ),
   );
@@ -32,6 +51,7 @@ class StudyLogApp extends StatelessWidget {
             border: OutlineInputBorder(),
           ),
         ),
-        home: const BerandaPage(),
+        initialRoute: AppRoutes.beranda,
+        onGenerateRoute: AppRoutes.onGenerateRoute,
       );
 }
